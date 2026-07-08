@@ -6,8 +6,10 @@ const NASA_BASE_URL = 'https://api.nasa.gov/neo/rest/v1';
 const CACHE_TTL = 60 * 60 * 6; // 6 hours
 
 export async function fetchAndStoreAsteroids(pool: Pool, redis: Redis) {
-  const today = new Date().toISOString().split('T')[0];
-  const cacheKey = `neows:${today}`;
+  const today = new Date();
+  const startDate = today.toISOString().split('T')[0];
+  const endDate = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+  const cacheKey = `neows:${startDate}`;
 
   // Check Redis cache first
   const cached = await redis.get(cacheKey);
@@ -19,8 +21,8 @@ export async function fetchAndStoreAsteroids(pool: Pool, redis: Redis) {
   // Fetch from NASA
   const response = await axios.get(`${NASA_BASE_URL}/feed`, {
     params: {
-      start_date: today,
-      end_date: today,
+      start_date: startDate,
+      end_date: endDate,
       api_key: process.env.NASA_API_KEY,
     },
   });
