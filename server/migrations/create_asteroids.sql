@@ -8,4 +8,4 @@ CREATE TABLE IF NOT EXISTS asteroids (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX idx_asteroids_nasa_id ON asteroids(nasa_id);
+CREATE INDEX IF NOT EXISTS idx_asteroids_nasa_id ON asteroids(nasa_id);

@@ -7,5 +7,5 @@ CREATE TABLE IF NOT EXISTS close_approaches (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX idx_close_approaches_asteroid_id ON close_approaches(asteroid_id);
-CREATE INDEX idx_close_approaches_date ON close_approaches(approach_date);
+CREATE INDEX IF NOT EXISTS idx_close_approaches_asteroid_id ON close_approaches(asteroid_id);
+CREATE INDEX IF NOT EXISTS idx_close_approaches_date ON close_approaches(approach_date);
