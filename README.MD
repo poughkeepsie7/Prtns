@@ -1,8 +1,8 @@
-**Asteroid Threat Dashboard**
+## Asteroid Threat Dashboard
 
 A full-stack real-time monitoring platform that ingests near-Earth asteroid data from NASA's NeoWs API, persists it to PostgreSQL, and visualizes close-approach patterns with a D3.js proximity chart.
 
-**Features**
+## Features
 
 
 - Live NASA data ingestion — pulls a rolling 7-day window of near-Earth object data from NASA's NeoWs API
@@ -12,7 +12,7 @@ A full-stack real-time monitoring platform that ingests near-Earth asteroid data
 - Sortable data table — full breakdown of every tracked asteroid's velocity, distance, and size
 - Fully containerized — five services (client, server, PostgreSQL, Redis, Nginx) orchestrated with Docker Compose     behind a single reverse-proxy entry point
 
-**Architecture**
+
 ## Architecture
 
 ```text
@@ -41,3 +41,47 @@ A full-stack real-time monitoring platform that ingests near-Earth asteroid data
                   │ (via cron job) │
                   └────────────────┘
 ```
+Only Nginx is exposed to the host machine 
+
+## Tech Stack
+| Layer | Technology |
+|--------|------------|
+| Frontend | React, TypeScript, Vite, D3.js |
+| Backend | Node.js, Express, TypeScript |
+| Database | PostgreSQL |
+| Caching | Redis |
+| Scheduling | node-cron |
+| Reverse Proxy | Nginx |
+| Orchestration | Docker Compose |
+
+## Getting started
+**Prerequisites** 
+- Docker Desktop
+- A free NASA API key from api.nasa.gov
+
+**Setup**
+1. Clone repo
+    ```
+    git clone https://github.com/poughkeepsie7/Prtns.git
+    cd asteroid-dashboard
+    ```
+
+2. Copy environment template and fill in your NASA API key
+    ```
+    cp .env.example .env
+    ```
+
+3. Start all services
+     ```
+    docker compose up --build
+    ```
+4. Open the dashboard
+     ```
+    http://localhost
+    ```
+
+## API Endpoints
+| Method | Endpoint | Description |
+|---------|-----------|-------------|
+| GET | `/api/health` | Health check |
+| GET | `/api/asteroids` | Returns tracked asteroids with close-approach data |
