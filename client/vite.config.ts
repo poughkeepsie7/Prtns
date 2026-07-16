@@ -4,10 +4,11 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    host: true,      // exposes to Docker network
+    host: true,
     port: 5173,
+    allowedHosts: ['client', 'localhost'],
     proxy: {
-      '/api': 'http://server:3000'  // in dev, forwards /api calls to Express
+      '/api': 'http://server:3000'
     }
   }
 })
